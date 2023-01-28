@@ -61,31 +61,23 @@ const fakeErrorResponse = new Error('Ups, something went wrong');
 
 describe('asyncPopulateUsersAndThreads thunk', () => {
   beforeEach(() => {
-    // backup original implementation
     api._getAllUsers = api.getAllUsers;
     api._seeAllThread = api.seeAllThread;
   });
 
   afterEach(() => {
-    // restore original implementation
     api.getAllUsers = api._getAllUsers;
     api.seeAllThread = api._seeAllThread;
 
-    // delete backup
     delete api._getAllUsers;
     delete api._seeAllThread;
   });
 
   it('should dispatch action correctly when data fetching success', async () => {
-    // arrange
-    // stub implementation
     api.getAllUsers = () => Promise.resolve(fakeUsersResponse);
     api.seeAllThread = () => Promise.resolve(fakeThreadsResponse);
-    // mock dispatch
     const dispatch = jest.fn();
-    // action
     await asyncPopulateUsersAndThreads()(dispatch);
-    // assert
     expect(dispatch).toHaveBeenCalledWith(showLoading());
     expect(dispatch).toHaveBeenCalledWith(receiveThreadActionCreator(fakeThreadsResponse));
     expect(dispatch).toHaveBeenCalledWith(receiveUsersActionCreator(fakeUsersResponse));
@@ -93,18 +85,12 @@ describe('asyncPopulateUsersAndThreads thunk', () => {
   });
 
   it('should dispatch action and call alert correctly when data fetching failed', async () => {
-    // arrange
-    // stub implementation
     api.getAllUsers = () => Promise.reject(fakeErrorResponse);
     api.seeAllThread = () => Promise.reject(fakeErrorResponse);
-    // mock dispatch
     const dispatch = jest.fn();
-    // mock alert
     window.alert = jest.fn();
-    // action
     await asyncPopulateUsersAndThreads()(dispatch);
 
-    // assert
     expect(dispatch).toHaveBeenCalledWith(showLoading());
     expect(dispatch).toHaveBeenCalledWith(hideLoading());
     expect(window.alert).toHaveBeenCalledWith(fakeErrorResponse.message);

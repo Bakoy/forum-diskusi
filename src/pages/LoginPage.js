@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import LoginInput from '../components/LoginInput';
@@ -17,7 +18,11 @@ function LoginPage() {
       <LoginInput login={onLogin} />
       <p className="text-lg mt-3">
         Belum punya akun?
-        <Link to="/register" className="text-blue-600">Daftar di sini.</Link>
+        <Link to="/register">
+          <Button variant="primary" size="sm" className="mx-2">
+            Daftar di sini.
+          </Button>
+        </Link>
       </p>
     </div>
   );
