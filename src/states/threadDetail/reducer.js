@@ -5,7 +5,7 @@ function threadDetailReducer(threadDetail = null, action = {}) {
     case ActionType.RECEIVE_THREAD_DETAIL:
       return action.payload.threadDetail;
     case ActionType.CLEAR_THREAD_DETAIL:
-      return null;
+      return [''];
     case ActionType.ADD_THREAD_COMMANT:
       return {
         ...threadDetail,
