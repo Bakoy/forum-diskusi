@@ -15,41 +15,31 @@ import RegisterInput from './RegisterInput';
 
 describe('RegisterInput component', () => {
   it('should handle name typing correctly', async () => {
-    // Arrange
     render(<RegisterInput register={() => {}} />);
     const nameInput = await screen.getByPlaceholderText('Nama');
 
-    // Action
     await userEvent.type(nameInput, 'nameTest');
-    // Assert
     expect(nameInput).toHaveValue('nameTest');
   });
 
   it('should handle Email typing correctly', async () => {
-    // Arrange
     render(<RegisterInput register={() => {}} />);
     const emailInput = await screen.getByPlaceholderText('Email');
 
-    // Action
     await userEvent.type(emailInput, 'emailtest');
-    // Assert
     expect(emailInput).toHaveValue('emailtest');
   });
 
   it('should handle password typing correctly', async () => {
-    // Arrange
     render(<RegisterInput register={() => {}} />);
     const passwordInput = await screen.getByPlaceholderText('Passwords');
 
-    // Action
     await userEvent.type(passwordInput, 'passwordtest');
 
-    // Assert
     expect(passwordInput).toHaveValue('passwordtest');
   });
 
   it('should call register function when register button is clicked', async () => {
-    // Arrange
     const mockRegister = jest.fn();
     render(<RegisterInput register={mockRegister} />);
     const nameInput = await screen.getByPlaceholderText('Nama');
@@ -59,9 +49,7 @@ describe('RegisterInput component', () => {
     const passwordInput = await screen.getByPlaceholderText('Passwords');
     await userEvent.type(passwordInput, 'passwordtest');
     const registerButton = await screen.getByRole('button', { name: 'Register' });
-    // Action
     await userEvent.click(registerButton);
-    // Assert
     expect(mockRegister).toBeCalledWith({
       name: 'namatest',
       email: 'emailtest',

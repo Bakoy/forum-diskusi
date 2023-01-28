@@ -14,30 +14,23 @@ import LoginInput from './LoginInput';
 
 describe('LoginInput component', () => {
   it('should handle email typing correctly', async () => {
-    // Arrange
     render(<LoginInput login={() => {}} />);
     const emailInput = await screen.getByPlaceholderText('Email');
 
-    // Action
     await userEvent.type(emailInput, 'emailtest');
-    // Assert
     expect(emailInput).toHaveValue('emailtest');
   });
 
   it('should handle password typing correctly', async () => {
-    // Arrange
     render(<LoginInput login={() => {}} />);
     const passwordInput = await screen.getByPlaceholderText('Passwords');
 
-    // Action
     await userEvent.type(passwordInput, 'passwordtest');
 
-    // Assert
     expect(passwordInput).toHaveValue('passwordtest');
   });
 
   it('should call login function when login button is clicked', async () => {
-    // Arrange
     const mockLogin = jest.fn();
     render(<LoginInput login={mockLogin} />);
     const emailInput = await screen.getByPlaceholderText('Email');
@@ -45,9 +38,7 @@ describe('LoginInput component', () => {
     const passwordInput = await screen.getByPlaceholderText('Passwords');
     await userEvent.type(passwordInput, 'passwordtest');
     const loginButton = await screen.getByRole('button', { name: 'Login' });
-    // Action
     await userEvent.click(loginButton);
-    // Assert
     expect(mockLogin).toBeCalledWith({
       email: 'emailtest',
       password: 'passwordtest',
